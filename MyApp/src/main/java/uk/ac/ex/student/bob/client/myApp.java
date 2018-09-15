@@ -209,15 +209,19 @@ private static final String SERVER_ERROR = "An error occurred while "
           //Transform lonlat to more readable format
           //Notice the parameters are reversed from when we called setCentre()
           //as this in now the inverse transformation.
+          lonLat.transform(map.getProjection(), "EPSG:4326"); 
+
           String fid = v.getFeatureId();
           String reportedAs = defaultNames[nextName];
           nextName++;
           multiBoxPanel.addItem( reportedAs, fid );
           
           if(reports.get(fid) == null){
+            // NB. report must use degrees for Lon/Lat so above transform is 
+            // essential.
             reports.put(fid, new PotholeReport.Builder(lonLat.lon(), lonLat.lat()).withReportedAs(reportedAs).build());
           }
-          lonLat.transform(map.getProjection(), "EPSG:4326"); 
+          
           logger.log(Level.INFO, "LonLat = (" + lonLat.lon() + " ; " + lonLat.lat() + ")");
           
         }
