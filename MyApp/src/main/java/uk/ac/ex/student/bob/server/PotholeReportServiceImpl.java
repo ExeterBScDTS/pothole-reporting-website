@@ -1,14 +1,19 @@
 package uk.ac.ex.student.bob.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
-// This is the service we are implementing here.
-import uk.ac.ex.student.bob.client.PotholeReportService;
-
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Logger;
 
+
+
+// This is the service we are implementing here.
+// N.B. defined in client code.
+import uk.ac.ex.student.bob.client.PotholeReportService;
+
+// The type of object we expect to receive.
+// N.B. defined in shared (client and server) code.
 import uk.ac.ex.student.bob.shared.PotholeReport;
+
 
 /**
  * The server-side implementation of the RPC service.
@@ -19,35 +24,17 @@ public class PotholeReportServiceImpl extends RemoteServiceServlet implements
 
 static Logger log = Log.getRootLogger();
 
-  public String reportServer(PotholeReport input) throws IllegalArgumentException {
-    // Verify that the input is valid. 
-    
+static PotholeCollection db_collection = new PotholeCollection("testCollection");
+
+  public String reportServer(PotholeReport report) throws IllegalArgumentException {
+     
     log.info("Pothole report received");
 
     String serverInfo = getServletContext().getServerInfo();
     
-    // String userAgent = getThreadLocalRequest().getHeader("User-Agent");
-
-    // Escape data from the client to avoid cross-site script vulnerabilities.
-    //input = escapeHtml(input);
-    // userAgent = escapeHtml(userAgent);
-
+    //db_collection.insert( new PotholeReportDocument(report) );
     return "Thank you! "
         + "Your pothole report was received. " + serverInfo;
   }
 
-  /**
-   * Escape an html string. Escaping data received from the client helps to
-   * prevent cross-site script vulnerabilities.
-   * 
-   * @param html the html string to escape
-   * @return the escaped string
-   */
-  private String escapeHtml(String html) {
-    if (html == null) {
-      return null;
-    }
-    return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(
-        ">", "&gt;");
-  }
-}
+ }
