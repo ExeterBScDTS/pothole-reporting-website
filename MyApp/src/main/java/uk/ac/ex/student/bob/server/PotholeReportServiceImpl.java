@@ -32,7 +32,7 @@ static PotholeCollection db_collection = new PotholeCollection("testCollection")
 
     String serverInfo = getServletContext().getServerInfo();
     
-    //db_collection.insert( new PotholeReportDocument(report) );
+    db_collection.insert( new PotholeReportDocument(report) );
     return "Thank you! "
         + "Your pothole report was received. " + serverInfo;
   }
