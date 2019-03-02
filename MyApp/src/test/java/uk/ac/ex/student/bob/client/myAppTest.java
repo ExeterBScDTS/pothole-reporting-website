@@ -7,6 +7,8 @@ import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
+import org.junit.Test;
+
 /**
  * GWT JUnit tests must extend GWTTestCase.
  */
